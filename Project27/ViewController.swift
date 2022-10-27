@@ -163,7 +163,7 @@ class ViewController: UIViewController {
                 .paragraphStyle: paragraphStyle
             ]
             
-            let string = "Mice go sweak!"
+            let string = "Mice go sqweak!"
             
             let attributedString = NSAttributedString(string: string, attributes: attrs)
             attributedString.draw(with: CGRect(x: 32, y: 32, width: 448, height: 448), options: .usesLineFragmentOrigin, context: nil)
