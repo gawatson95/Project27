@@ -13,20 +13,22 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        drawRectangle()
+        //drawRectangle()
+        drawTwin()
     }
     
     
     @IBAction func redrawTapped(_ sender: Any) {
         currentDrawType += 1
         
-        if currentDrawType > 5 {
+        if currentDrawType > 9 {
             currentDrawType = 0
         }
         
         switch currentDrawType {
         case 0:
-            drawRectangle()
+            //drawRectangle()
+            drawTwin()
         case 1:
             drawCircle()
         case 2:
@@ -37,6 +39,10 @@ class ViewController: UIViewController {
             drawLines()
         case 5:
             drawImagesAndText()
+        case 6:
+            drawEmoji()
+        case 7:
+            drawTwin()
         default:
             break
         }
@@ -164,6 +170,73 @@ class ViewController: UIViewController {
             
             let mouse = UIImage(named: "mouse")
             mouse?.draw(at: CGPoint(x: 300, y: 150))
+        }
+        
+        imageView.image = image
+    }
+    
+    func drawEmoji() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let image = renderer.image { context in
+            let face = CGRect(x: 0, y: 0, width: 512, height: 512).insetBy(dx: 5, dy: 5)
+            
+            context.cgContext.setFillColor(UIColor.yellow.cgColor)
+            context.cgContext.addEllipse(in: face)
+            context.cgContext.drawPath(using: .fill)
+            
+            
+            let eye = CGRect(x: 100, y: 100, width: 100, height: 100)
+            context.cgContext.setFillColor(UIColor.brown.cgColor)
+            context.cgContext.addEllipse(in: eye)
+            context.cgContext.drawPath(using: .fill)
+            
+            let eye2 = CGRect(x: 300, y: 100, width: 100, height: 100)
+            context.cgContext.setFillColor(UIColor.brown.cgColor)
+            context.cgContext.addEllipse(in: eye2)
+            context.cgContext.drawPath(using: .fill)
+            
+            let mouth = CGPoint(x: 100, y: 350)
+            context.cgContext.move(to: mouth)
+            context.cgContext.setStrokeColor(UIColor.brown.cgColor)
+            context.cgContext.setLineWidth(30)
+            context.cgContext.addLine(to: CGPoint(x: 400, y: 350))
+            context.cgContext.strokePath()
+        }
+        
+        imageView.image = image
+    }
+    
+    func drawTwin() {
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: 512, height: 512))
+        
+        let image = renderer.image { context in
+            let ctx = context.cgContext
+            
+            // T
+            ctx.move(to: CGPoint(x: 0, y: 100))
+            ctx.addLine(to: CGPoint(x: 100, y: 100))
+            ctx.move(to: CGPoint(x: 50, y: 100))
+            ctx.addLine(to: CGPoint(x: 50, y: 200))
+            
+            // W
+            ctx.move(to: CGPoint(x: 120, y: 100))
+            ctx.addLine(to: CGPoint(x: 130, y: 200))
+            ctx.addLine(to: CGPoint(x: 140, y: 100))
+            ctx.addLine(to: CGPoint(x: 150, y: 200))
+            ctx.addLine(to: CGPoint(x: 160, y: 100))
+            
+            // I
+            ctx.move(to: CGPoint(x: 180, y: 100))
+            ctx.addLine(to: CGPoint(x: 180, y: 200))
+            
+            // N
+            ctx.move(to: CGPoint(x: 200, y: 200))
+            ctx.addLine(to: CGPoint(x: 200, y: 100))
+            ctx.addLine(to: CGPoint(x: 240, y: 200))
+            ctx.addLine(to: CGPoint(x: 240, y: 100))
+            
+            ctx.strokePath()
         }
         
         imageView.image = image
